@@ -42,7 +42,7 @@ stdCmd() {
     fi
 
     local path=""
-    local index=$(grep -E -i " ?$1,?" "$TELEPORT_CONFIG")
+    local index=$(grep -E -i -m 1 "[ ,]$1" "$TELEPORT_CONFIG")
 
     # if record exist
     if [ "$index" != "" ]; then
@@ -57,7 +57,8 @@ stdCmd() {
             regexp="${regexp}${text:$i:1}+[a-zA-Z0-9_.-]*"
         done
 
-        index=$(grep -E -i "$regexp" "$TELEPORT_CONFIG")
+        regexp="${regexp}( |$)"
+        index=$(grep -E -i -m 1 "$regexp" "$TELEPORT_CONFIG")
     fi
 
     # if record doesn't exist
@@ -84,7 +85,7 @@ addCmd() {
     fi
 
     local path=$(abspath "$1")
-    local index=$(grep -E "$path " "$TELEPORT_CONFIG")
+    local index=$(grep -E -m 1 "$path " "$TELEPORT_CONFIG")
 
     # if record doesn't exist
     if [ "$index" == "" ]; then
@@ -117,7 +118,7 @@ rmCmd() {
 
     for arg in "$@"; do
         # if its a tag
-       local  index=$(grep -E " ?$arg,?" "$TELEPORT_CONFIG")
+        local index=$(grep -m 1 "[ ,]$arg" "$TELEPORT_CONFIG")
 
         # if record exist
         if [ "$index" != "" ]; then
@@ -128,7 +129,7 @@ rmCmd() {
 
         # if its a path
         local path=$(abspath "$arg")
-        index=$(grep -E "$path " "$TELEPORT_CONFIG")
+        index=$(grep -E -m 1 "$path " "$TELEPORT_CONFIG")
 
         # if record exist
         if [ "$index" != "" ]; then
