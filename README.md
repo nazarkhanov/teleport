@@ -1,7 +1,5 @@
 # Teleport command
 
-`te` command allows you to go to a directory with various abbreviations
-
 ```shell
 te --help
 ```
