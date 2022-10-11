@@ -34,3 +34,12 @@ te rm <path | tag> [<path | tag> ...]   # remove path or tags
 te ls                                   # view index
 ```
 
+## Setup
+
+1. Copy `teleport.sh` to `/usr/bin/`
+2. Allow to execute script `chmod +x /usr/bin/teleport.sh`
+3. Add this line to your `~/.bashrc` file to make the script work
+
+```
+alias te=". teleport.sh"
+```
